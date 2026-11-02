@@ -2,7 +2,15 @@ import './Navbar.css';
 
 const navItems = ['Home', 'Favourites', 'FAQ', 'Stats'];
 
-function Navbar() {
+function Navbar({ onHomeClick }) {
+  function handleClick(event, item) {
+    event.preventDefault();
+
+    if (item === 'Home') {
+      onHomeClick();
+    }
+  }
+
   return (
     <header className="navbar">
       <div className="navbar-inner">
@@ -12,6 +20,7 @@ function Navbar() {
               key={item}
               href="#"
               className={`nav-link ${item === 'Home' ? 'active' : ''}`}
+              onClick={(event) => handleClick(event, item)}
             >
               {item}
             </a>

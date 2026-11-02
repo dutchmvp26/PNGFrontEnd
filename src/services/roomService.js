@@ -3,8 +3,8 @@ async function handleResponse(response) {
 
   if (!response.ok) {
     throw new Error(
-      data.message ||
       data.errors?.[0]?.defaultMessage ||
+      data.message ||
       'Something went wrong.'
     );
   }
@@ -12,11 +12,12 @@ async function handleResponse(response) {
   return data;
 }
 
-export async function createRoom(numberOfPlayers = 2) {
+// room = { name, description, activityType, icon, numberOfPlayers }
+export async function createRoom(room) {
   const response = await fetch('/api/rooms', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ numberOfPlayers }),
+    body: JSON.stringify(room),
   });
 
   return handleResponse(response);

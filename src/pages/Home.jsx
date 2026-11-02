@@ -1,30 +1,15 @@
 import { useState } from 'react';
-import { createRoom, joinRoom } from '../services/roomService';
+import { joinRoom } from '../services/roomService';
 import './Home.css';
 
-function Home() {
-  const [room, setRoom] = useState(null);
+function Home({ onCreateRoomClick }) {
+  const [participant, setParticipant] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const [showJoinForm, setShowJoinForm] = useState(false);
   const [roomCode, setRoomCode] = useState('');
   const [playerName, setPlayerName] = useState('');
-
-  async function handleCreateRoom() {
-    setLoading(true);
-    setError('');
-    setRoom(null);
-
-    try {
-      const data = await createRoom(2);
-      setRoom(data);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }
 
   async function handleJoinRoom(event) {
     event.preventDefault();
@@ -33,7 +18,7 @@ function Home() {
 
     try {
       const data = await joinRoom(roomCode, playerName);
-      setRoom(data);
+      setParticipant(data);
       setShowJoinForm(false);
     } catch (err) {
       setError(err.message);
@@ -48,12 +33,8 @@ function Home() {
       <p className="home-subtitle">Create or join a room to get started.</p>
 
       <div className="action-cards">
-        <button
-          className="action-card create-card"
-          onClick={handleCreateRoom}
-          disabled={loading}
-        >
-          {loading ? 'Creating...' : 'Create Room'}
+        <button className="action-card create-card" onClick={onCreateRoomClick}>
+          Create Room
         </button>
 
         <button
@@ -96,15 +77,10 @@ function Home() {
 
       {error && <p className="error-message">{error}</p>}
 
-      {room && (
+      {participant && (
         <div className="room-result">
-          <h2>{room.roomCode ? 'Room created!' : 'Successfully joined!'}</h2>
-          {room.roomCode && (
-            <p>
-              Room code: <strong>{room.roomCode}</strong>
-            </p>
-          )}
-          {room.numberOfPlayers && <p>Max players: {room.numberOfPlayers}</p>}
+          <h2>Successfully joined!</h2>
+          <p>You joined as {participant.name}.</p>
         </div>
       )}
     </div>
