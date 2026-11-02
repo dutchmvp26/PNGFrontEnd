@@ -102,16 +102,6 @@
   color: var(--color-danger);
 }
 
-.room-result {
-  padding: 20px;
-  border-radius: 12px;
-  background: var(--color-primary-soft);
-}
-
-.room-result h2 {
-  margin-bottom: 8px;
-  color: var(--color-primary);
-}
 
 @media (max-width: 700px) {
   .action-cards {

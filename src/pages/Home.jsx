@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { joinRoom } from '../services/roomService';
+import { useNavigate } from 'react-router-dom';
+import { getRoom, joinRoom } from '../services/roomService';
 import './Home.css';
 
-function Home({ onCreateRoomClick }) {
-  const [participant, setParticipant] = useState(null);
+function Home({ onCreateRoomClick, onRoomJoined }) {
+  const navigate = useNavigate();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -16,13 +17,12 @@ function Home({ onCreateRoomClick }) {
     setLoading(true);
     setError('');
 
-    try {
-      const data = await joinRoom(roomCode, playerName);
-      setParticipant(data);
-      setShowJoinForm(false);
+       try {
+      const code = roomCode.trim();
+      const participant = await joinRoom(code, playerName);
+      navigate(`/rooms/${code}`, { state: { participant } });
     } catch (err) {
       setError(err.message);
-    } finally {
       setLoading(false);
     }
   }
@@ -33,7 +33,7 @@ function Home({ onCreateRoomClick }) {
       <p className="home-subtitle">Create or join a room to get started.</p>
 
       <div className="action-cards">
-        <button className="action-card create-card" onClick={onCreateRoomClick}>
+        <button className="action-card create-card" onClick={() => navigate('/rooms/new')}>
           Create Room
         </button>
 
@@ -76,13 +76,6 @@ function Home({ onCreateRoomClick }) {
       )}
 
       {error && <p className="error-message">{error}</p>}
-
-      {participant && (
-        <div className="room-result">
-          <h2>Successfully joined!</h2>
-          <p>You joined as {participant.name}.</p>
-        </div>
-      )}
     </div>
   );
 }

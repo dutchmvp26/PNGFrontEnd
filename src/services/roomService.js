@@ -23,6 +23,12 @@ export async function createRoom(room) {
   return handleResponse(response);
 }
 
+export async function getRoom(roomCode) {
+  const response = await fetch(`/api/rooms/${encodeURIComponent(roomCode)}`);
+
+  return handleResponse(response);
+}
+
 export async function joinRoom(roomCode, name) {
   const response = await fetch('/api/rooms/join', {
     method: 'POST',

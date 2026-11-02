@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { createRoom } from '../services/roomService';
+import { useNavigate } from 'react-router-dom';
 import { ACTIVITY_TYPES, ROOM_ICONS } from '../constants/roomOptions';
 import './CreateRoom.css';
 
@@ -10,6 +11,7 @@ for (let i = 2; i <= 30; i++) {
 }
 
 function CreateRoom({ onRoomCreated, onCancel }) {
+  const navigate = useNavigate();
   const [roomName, setRoomName] = useState('');
   const [description, setDescription] = useState('');
   const [activityType, setActivityType] = useState(ACTIVITY_TYPES[0].value);
@@ -33,7 +35,7 @@ function CreateRoom({ onRoomCreated, onCancel }) {
         numberOfPlayers: Number(maxPlayers),
       });
 
-      onRoomCreated(room);
+      navigate(`/rooms/${room.roomCode}`, { state: { created: true } });
     } catch (err) {
       setError(err.message);
       setLoading(false);
@@ -123,7 +125,7 @@ function CreateRoom({ onRoomCreated, onCancel }) {
         {error && <p className="error-message">{error}</p>}
 
         <div className="form-buttons">
-          <button type="button" className="cancel-button" onClick={onCancel}>
+          <button type="button" className="cancel-button" onClick={() => navigate('/')}>
             Cancel
           </button>
           <button type="submit" className="primary-button" disabled={loading}>

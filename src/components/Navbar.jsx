@@ -1,26 +1,28 @@
+import { NavLink } from 'react-router-dom';
 import './Navbar.css';
 
-const navItems = ['Home', 'Favourites', 'FAQ', 'Stats'];
+// These pages don't exist yet
+const otherNavItems = ['Favourites', 'FAQ', 'Stats'];
 
-function Navbar({ onHomeClick }) {
-  function handleClick(event, item) {
-    event.preventDefault();
-
-    if (item === 'Home') {
-      onHomeClick();
-    }
-  }
-
+function Navbar() {
   return (
     <header className="navbar">
       <div className="navbar-inner">
         <nav className="nav-links">
-          {navItems.map((item) => (
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+          >
+            Home
+          </NavLink>
+
+          {otherNavItems.map((item) => (
             <a
               key={item}
               href="#"
-              className={`nav-link ${item === 'Home' ? 'active' : ''}`}
-              onClick={(event) => handleClick(event, item)}
+              className="nav-link"
+              onClick={(event) => event.preventDefault()}
             >
               {item}
             </a>
