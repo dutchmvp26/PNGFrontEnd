@@ -19,4 +19,4 @@ jobs:
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
-          SONAR_TOKEN: ${{ secrets.96e6b775a947c8cfa847903d96ccf70a798bbc7a }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
