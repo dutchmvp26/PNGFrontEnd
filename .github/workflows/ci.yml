@@ -1,4 +1,4 @@
-name: SonarQube Cloud
+name: SonarQube
 
 on:
   push:
@@ -10,7 +10,7 @@ jobs:
   sonarqube:
     runs-on: ubuntu-latest
 
-    steps:
+    steps:s
       - name: Check out repository
         uses: actions/checkout@v5
         with:
