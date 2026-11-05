@@ -4,11 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { ACTIVITY_TYPES, ROOM_ICONS } from '../constants/roomOptions';
 import './CreateRoom.css';
 
-// 2, 3, 4 ... 30
-const playerOptions = [];
-for (let i = 2; i <= 30; i++) {
-  playerOptions.push(i);
-}
 
 function CreateRoom({ onRoomCreated, onCancel }) {
   const navigate = useNavigate();
@@ -89,16 +84,16 @@ function CreateRoom({ onRoomCreated, onCancel }) {
 
             <label className="form-label">
               Max. amount of participants
-              <select
-                value={maxPlayers}
-                onChange={(event) => setMaxPlayers(event.target.value)}
-              >
-                {playerOptions.map((number) => (
-                  <option key={number} value={number}>
-                    {number}
-                  </option>
-                ))}
-              </select>
+             <input
+             type="number"
+             min={2}
+             max={60}
+             step={1}
+             placeholder="2-60"
+             value={maxPlayers}
+             onChange={(event) => setMaxPlayers(event.target.value)}
+             required
+             />
             </label>
 
             <div className="form-label">
