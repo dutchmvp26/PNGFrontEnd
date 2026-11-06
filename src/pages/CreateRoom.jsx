@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { createRoom } from '../services/roomService';
 import { useNavigate } from 'react-router-dom';
+import { createRoom } from '../services/roomService';
 import { ACTIVITY_TYPES, ROOM_ICONS } from '../constants/roomOptions';
 import './CreateRoom.css';
 
-
-function CreateRoom({ onRoomCreated, onCancel }) {
+function CreateRoom() {
   const navigate = useNavigate();
   const [roomName, setRoomName] = useState('');
   const [description, setDescription] = useState('');
@@ -84,16 +83,16 @@ function CreateRoom({ onRoomCreated, onCancel }) {
 
             <label className="form-label">
               Max. amount of participants
-             <input
-             type="number"
-             min={2}
-             max={60}
-             step={1}
-             placeholder="2-60"
-             value={maxPlayers}
-             onChange={(event) => setMaxPlayers(event.target.value)}
-             required
-             />
+              <input
+                type="number"
+                min={2}
+                max={60}
+                step={1}
+                placeholder="2-60"
+                value={maxPlayers}
+                onChange={(event) => setMaxPlayers(event.target.value)}
+                required
+              />
             </label>
 
             <div className="form-label">

@@ -5,13 +5,9 @@ import { getActivityLabel, getIconEmoji } from '../constants/roomOptions';
 import './Room.css';
 
 function Room() {
-  // The room code comes from the URL, e.g. /rooms/AB12CD
+
   const { roomCode } = useParams();
-
-  // Extra info passed by Home (after joining) or CreateRoom (after creating).
-  // It's empty when someone opens the link directly, e.g. a shared link.
   const { state } = useLocation();
-
   const [room, setRoom] = useState(null);
   const [error, setError] = useState('');
 

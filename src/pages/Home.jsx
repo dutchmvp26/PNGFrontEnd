@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getRoom, joinRoom } from '../services/roomService';
+import { joinRoom } from '../services/roomService';
 import './Home.css';
 
-function Home({ onCreateRoomClick, onRoomJoined }) {
+function Home() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,7 @@ function Home({ onCreateRoomClick, onRoomJoined }) {
     setLoading(true);
     setError('');
 
-       try {
+    try {
       const code = roomCode.trim();
       const participant = await joinRoom(code, playerName);
       navigate(`/rooms/${code}`, { state: { participant } });
