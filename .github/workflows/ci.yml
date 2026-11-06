@@ -1,4 +1,4 @@
-name: Frontend CI/CD
+name: Frontend CI
 
 on:
   push:
@@ -39,28 +39,3 @@ jobs:
 
       - name: Run lint
         run: npm run lint
-
-  deploy:
-    needs: [sonarqube, lint]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: self-hosted
-
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v5
-
-      - name: Build Docker image
-        run: docker build -t pngfrontend .
-
-      - name: Replace running container
-        run: |
-          docker rm -f pngfrontend || true
-          docker run -d \
-            --name pngfrontend \
-            -p 80:80 \
-            --restart unless-stopped \
-            --network png-network \
-            pngfrontend
-
-      - name: Remove old images
-        run: docker image prune -f
