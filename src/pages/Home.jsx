@@ -57,20 +57,21 @@
           </button>
 
           <button className="action-card help-card">
-            Need help?
+            Need help?  
           </button>
 
         <button className="action-card" onClick={() => { if 
            (!showRooms) { void handleGetAllRooms();
         }
         setShowRooms(!showRooms);
+        setShowJoinForm(false);
       }}
       > 
        {showRooms ? 'Close Rooms' : 'All Rooms'}
         </button>
       </div>
 
-      {rooms.length > 0 && (
+      {showRooms && rooms.length > 0 && (
     <div className="rooms-list">
       <h2>All Rooms</h2>
 
