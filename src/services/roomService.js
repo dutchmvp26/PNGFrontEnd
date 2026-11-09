@@ -29,6 +29,12 @@ export async function getRoom(roomCode) {
   return handleResponse(response);
 }
 
+export async function getAllRooms() {
+  const response = await fetch('/api/rooms');
+
+  return handleResponse(response);
+}
+
 export async function joinRoom(roomCode, name) {
   const response = await fetch('/api/rooms/join', {
     method: 'POST',
