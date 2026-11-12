@@ -115,4 +115,18 @@
   .home-title {
     font-size: 2.25rem;
   }
+
+  .delete-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.delete-button:hover {
+  background-color: #b02a37;
+}
 }

@@ -1,6 +1,6 @@
   import { useState } from 'react';
   import { useNavigate } from 'react-router-dom';
-  import { joinRoom, getAllRooms } from '../services/roomService';
+  import { joinRoom, getAllRooms, deleteRoom} from '../services/roomService';
   import './Home.css';
 
   function Home() {
@@ -28,6 +28,26 @@
         setLoading(false);
       }
     }
+
+    async function handleDeleteRoom(roomCode) {
+  const confirmed = window.confirm(
+    `Are you sure you want to delete room ${roomCode}?`
+  );
+
+  if (!confirmed) return;
+
+  try {
+    setError('');
+
+    await deleteRoom(roomCode);
+
+    // Refresh the room list after deletion
+    await handleGetAllRooms();
+
+  } catch (err) {
+    setError(err.message);
+  }
+}
 
     async function handleGetAllRooms() {
     try {
@@ -80,6 +100,12 @@
           <h3>{room.name}</h3>
           <p>Code: {room.roomCode}</p>
           <p>Status: {room.status}</p>
+
+           <button
+      onClick={() => handleDeleteRoom(room.roomCode)}
+      className="delete-button">
+       Delete Room
+       </button>
         </div>
       ))}
     </div>

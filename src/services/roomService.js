@@ -1,4 +1,9 @@
 async function handleResponse(response) {
+
+    if (response.status === 204) {
+    return null;
+  }
+    
   const data = await response.json().catch(() => ({}));
 
   if (!response.ok) {
@@ -25,6 +30,14 @@ export async function createRoom(room) {
 
 export async function getRoom(roomCode) {
   const response = await fetch(`/api/rooms/${encodeURIComponent(roomCode)}`);
+
+  return handleResponse(response);
+}
+
+export async function deleteRoom(roomCode) {
+  const response = await fetch(`/api/rooms/${encodeURIComponent(roomCode)}`, {
+    method: 'DELETE',
+  });
 
   return handleResponse(response);
 }
