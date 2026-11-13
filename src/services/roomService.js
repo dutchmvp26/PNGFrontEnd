@@ -28,6 +28,18 @@ export async function createRoom(room) {
   return handleResponse(response);
 }
 
+export async function updateRoom(roomCode, room) {
+  const response = await fetch(`/api/rooms/${encodeURIComponent(roomCode)}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(room),
+  });
+
+  return handleResponse(response);
+}
+
+
+
 export async function getRoom(roomCode) {
   const response = await fetch(`/api/rooms/${encodeURIComponent(roomCode)}`);
 

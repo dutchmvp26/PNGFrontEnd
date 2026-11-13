@@ -116,6 +116,26 @@
   background-color: #b02a37;
 }
 
+.room-card-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.edit-button {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.edit-button:hover {
+  background-color: var(--color-primary-hover);
+}
+
 @media (max-width: 700px) {
   .action-cards {
     grid-template-columns: 1fr;

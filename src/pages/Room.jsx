@@ -50,6 +50,9 @@ function Room() {
       {state?.created && (
         <p className="room-success">Room created! Share the code with your friends.</p>
       )}
+      {state?.updated && (
+        <p className="room-success">Room updated!</p>
+      )}
 
       <div className="room-card">
         <span className="room-icon">{getIconEmoji(room.icon)}</span>

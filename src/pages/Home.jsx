@@ -94,20 +94,31 @@
       {showRooms && rooms.length > 0 && (
     <div className="rooms-list">
       <h2>All Rooms</h2>
+{rooms.map(room => (
+  <div key={room.id} className="room-card">
+    <h3>{room.name}</h3>
+    <p>Code: {room.roomCode}</p>
+    <p>Status: {room.status}</p>
 
-      {rooms.map(room => (
-        <div key={room.id} className="room-card">
-          <h3>{room.name}</h3>
-          <p>Code: {room.roomCode}</p>
-          <p>Status: {room.status}</p>
+    <div className="room-card-buttons">
+      {room.status === 'WAITING' && (
+        <button
+          onClick={() => navigate(`/rooms/${room.roomCode}/edit`)}
+          className="edit-button"
+        >
+          Edit Room
+        </button>
+      )}
 
-           <button
-      onClick={() => handleDeleteRoom(room.roomCode)}
-      className="delete-button">
-       Delete Room
-       </button>
-        </div>
-      ))}
+      <button
+        onClick={() => handleDeleteRoom(room.roomCode)}
+        className="delete-button"
+      >
+        Delete Room
+      </button>
+    </div>
+  </div>
+))}
     </div>
   )}
 
